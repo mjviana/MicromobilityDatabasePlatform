@@ -10,7 +10,7 @@ namespace Neo4j
         {
             try
             {
-                using (var greeter = new Neo4jDriver("neo4j://localhost:7687", "neo4j", "test"))
+                using (var neo4jDriver = new Neo4jDriver("neo4j://localhost:7687", "neo4j", "test"))
                 {
                     #region USERS
                     //for (int i = 1; i < 500000; i++)
@@ -21,19 +21,45 @@ namespace Neo4j
                     #endregion
 
                     #region VEHICLES
-                    Console.WriteLine("STATIONARY");
-                    for (int i = 0; i < 6000; i++)
+                    //Console.WriteLine("STATIONARY");
+                    //for (int i = 0; i < 6000; i++)
+                    //{
+                    //    Console.WriteLine($"vehicle #{i}");
+                    //    await neo4jDriver.PopulateVehicles("stationary");
+                    //}
+
+                    //Console.WriteLine("ON THE MOVE");
+                    //for (int i = 0; i < 3000; i++)
+                    //{
+                    //    Console.WriteLine($"vehicle #{i}");
+                    //    await neo4jDriver.PopulateVehicles("on the move");
+                    //}
+                    #endregion
+
+
+                    #region PAYMENT METHODS
+
+                    //for (int i = 0; i < 35; i++)
+                    //{
+                    //    await neo4jDriver.PopulatePaymentMehots();
+                    //}
+                    #endregion
+
+                    #region LOCATIONS
+
+                    for (int i = 0; i < 40; i++)
                     {
-                        Console.WriteLine($"vehicle #{i}");
-                        await greeter.PopulateVehicles("stationary");
+                        Console.WriteLine($"Generating location # {i}");
+                        await neo4jDriver.PopulateLocations();
                     }
 
-                    Console.WriteLine("ON THE MOVE");
-                    for (int i = 0; i < 3000; i++)
-                    {
-                        Console.WriteLine($"vehicle #{i}");
-                        await greeter.PopulateVehicles("on the move");
-                    }
+                    #endregion
+
+                    #region TRIPS
+                    //Console.WriteLine("Generating a trip...");
+
+                    //await neo4jDriver.GenerateTripToUser(6, 1, 7);
+
                     #endregion
                 }
             }
@@ -65,7 +91,7 @@ namespace Neo4j
                  ", email: \"" + Faker.User.Email() + "\"" +
                  ", user_name: \"" + Faker.User.Username() + "\"" +
                  ",unit_of_measure: \"" + "KM" + "\"" +
-                 ", share_location:" + Faker.Number.Bool()+
+                 ", share_location:" + Faker.Number.Bool() +
                  "}) RETURN user.name as name");
 
                 var result = await cursor.SingleAsync(record => record["name"].As<string>());
@@ -88,6 +114,58 @@ namespace Neo4j
                 Console.WriteLine(result);
             }
         }
+
+        public async Task PopulatePaymentMethods()
+        {
+            using (var session = _driver.AsyncSession())
+            {
+                IResultCursor cursor = await session.RunAsync("CREATE(pm:PAYMENT_METHOD {card_CVC:" + Faker.Number.RandomNumber(100, 999) +
+                    ", card_active:" + Faker.Number.Bool() +
+                    ", card_expire_date: \"" + Faker.Number.RandomNumber(1, 12) + "/" + Faker.Number.RandomNumber(22, 30) + "\"" +
+                    ", card_number:" + Faker.Number.RandomNumber(1000000000000000, 9999999999999999) +
+                    ", type: \"" + Faker.CreditCard.CreditCardType() + "\"}) RETURN pm.type AS card_type");
+
+                var result = await cursor.SingleAsync(r => r["card_type"].As<string>());
+
+                Console.WriteLine($"Card with type: {result} was generated!");
+            }
+        }
+
+        public async Task PopulateLocations()
+        {
+            using (var session = _driver.AsyncSession())
+            {
+                IResultCursor cursor = await session.RunAsync("CREATE(l:LOCATION {latitude:\"" + Faker.GeoLocation.Latitude() + "\"" +
+                    ", longitude:\"" + Faker.GeoLocation.Longitude() + "\"" +
+                    ", name: \"" + Faker.Address.StreetName() + "\"}) RETURN l.name AS name");
+
+                var result = await cursor.SingleAsync(r => r["name"].As<string>());
+
+                Console.WriteLine($"Location with name: {result} was generated!");
+            }
+        }
+
+        //For this I recommend going to the db and look for the ids that you want to use for each parameter
+        public async Task GenerateTripToUser(int userId, int vehicleId, int paymentMethodId)
+        {
+            using (var session = _driver.AsyncSession())
+            {
+                IResultCursor cursor = await session.RunAsync("MATCH(u:USER), (v:VEHICLE)" +
+                    $"WHERE ID(u) = {userId} AND ID(v) = {vehicleId}" +
+                    " CREATE (u) -[rel:TRAVELED_USING {amount_paid: \"" + Faker.Commerce.Price() + "\"" +
+                    ",route: \"" + Faker.Lorem.Paragraph(1) + "\"" +
+                    $",payment_method_id: {paymentMethodId}" +
+                    ",start_date_time: \"" + Faker.Date.Between(DateTime.Now.AddMinutes(-40), DateTime.Now) + "\"" +
+                    ",end_date_time: \"" + Faker.Date.Between(DateTime.Now, DateTime.Now.AddMinutes(13)) + "\"" +
+                    ",rating:" + Faker.Number.RandomNumber(0, 5) +
+                    ",incidents: \"" + Faker.Lorem.Sentence(6) + "\""
+                    + "}]-> (v) RETURN rel.id as id");
+
+                var result = await cursor.SingleAsync(record => record["id"].As<string>());
+                Console.WriteLine(result);
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);

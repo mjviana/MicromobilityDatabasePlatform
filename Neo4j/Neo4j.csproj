@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus.Locations" Version="34.0.1" />
     <PackageReference Include="Faker.Data" Version="2.0.0" />
     <PackageReference Include="Neo4j.Driver" Version="4.4.0" />
   </ItemGroup>
