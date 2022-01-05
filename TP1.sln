@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neo4j", "Neo4j\Neo4j.csproj", "{86F4BD15-045A-47E2-AEE7-FE6A824464AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo4j", "Neo4j\Neo4j.csproj", "{86F4BD15-045A-47E2-AEE7-FE6A824464AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLServer", "SQLServer\SQLServer.csproj", "{AEC78FFE-D311-475F-96E3-F9D5CFD0B8D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{86F4BD15-045A-47E2-AEE7-FE6A824464AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86F4BD15-045A-47E2-AEE7-FE6A824464AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86F4BD15-045A-47E2-AEE7-FE6A824464AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEC78FFE-D311-475F-96E3-F9D5CFD0B8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEC78FFE-D311-475F-96E3-F9D5CFD0B8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEC78FFE-D311-475F-96E3-F9D5CFD0B8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEC78FFE-D311-475F-96E3-F9D5CFD0B8D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
