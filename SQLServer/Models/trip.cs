@@ -4,16 +4,16 @@ namespace SQLServer.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class trip
+    [Table("trips")]
+    public partial class Trip
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public trip()
+        public Trip()
         {
-            historicals = new HashSet<historical>();
-            payments = new HashSet<payment>();
-            problems = new HashSet<problem>();
+            historicals = new HashSet<Historical>();
+            payments = new HashSet<Payment>();
+            problems = new HashSet<Problem>();
         }
 
         [Key]
@@ -33,16 +33,16 @@ namespace SQLServer.Models
         public string feedback { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<historical> historicals { get; set; }
+        public virtual ICollection<Historical> historicals { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<payment> payments { get; set; }
+        public virtual ICollection<Payment> payments { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<problem> problems { get; set; }
+        public virtual ICollection<Problem> problems { get; set; }
 
-        public virtual user user { get; set; }
+        public virtual User user { get; set; }
 
-        public virtual vehicle vehicle { get; set; }
+        public virtual Vehicle vehicle { get; set; }
     }
 }

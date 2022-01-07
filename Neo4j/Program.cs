@@ -21,21 +21,20 @@ namespace Neo4j
                     #endregion
 
                     #region VEHICLES
-                    //Console.WriteLine("STATIONARY");
-                    //for (int i = 0; i < 6000; i++)
-                    //{
-                    //    Console.WriteLine($"vehicle #{i}");
-                    //    await neo4jDriver.PopulateVehicles("stationary");
-                    //}
+                    Console.WriteLine("POPULATING AVAILABLE VEHICLES...");
+                    for (int i = 0; i < 6000; i++)
+                    {
+                        Console.WriteLine($"vehicle #{i}");
+                        await neo4jDriver.PopulateVehicles("available");
+                    }
 
-                    //Console.WriteLine("ON THE MOVE");
-                    //for (int i = 0; i < 3000; i++)
-                    //{
-                    //    Console.WriteLine($"vehicle #{i}");
-                    //    await neo4jDriver.PopulateVehicles("on the move");
-                    //}
+                    Console.WriteLine("POPULATING NOT AVAILABLE VEHICLES...");
+                    for (int i = 0; i < 3000; i++)
+                    {
+                        Console.WriteLine($"vehicle #{i}");
+                        await neo4jDriver.PopulateVehicles("not available");
+                    }
                     #endregion
-
 
                     #region PAYMENT METHODS
 
@@ -47,11 +46,11 @@ namespace Neo4j
 
                     #region LOCATIONS
 
-                    for (int i = 0; i < 40; i++)
-                    {
-                        Console.WriteLine($"Generating location # {i}");
-                        await neo4jDriver.PopulateLocations();
-                    }
+                    //for (int i = 0; i < 40; i++)
+                    //{
+                    //    Console.WriteLine($"Generating location # {i}");
+                    //    await neo4jDriver.PopulateLocations();
+                    //}
 
                     #endregion
 
@@ -66,6 +65,8 @@ namespace Neo4j
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                Console.ReadLine();
+
             }
         }
     }
@@ -105,9 +106,9 @@ namespace Neo4j
             {
                 IResultCursor cursor = await session.RunAsync("CREATE (vehicle:VEHICLE {model: \"Scooter " + Faker.Number.RandomNumber(10) + "\"" +
                  ",status: \"" + status + "\"" +
-                 ", latitue: \"" + Faker.GeoLocation.Latitude() + "\"" +
-                 ", longitude: \"" + Faker.GeoLocation.Longitude() + "\"" +
-                 ",active: \"" + Faker.Number.Bool() + "\"" +
+                 ",latitude: \"" + Faker.GeoLocation.Latitude() + "\"" +
+                 ",longitude: \"" + Faker.GeoLocation.Longitude() + "\"" +
+                 ",active:" + Faker.Number.Bool() +
                  "}) RETURN vehicle.model as model");
 
                 var result = await cursor.SingleAsync(record => record["model"].As<string>());

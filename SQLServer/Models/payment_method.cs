@@ -1,12 +1,10 @@
 namespace SQLServer.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class payment_method
+    [Table("payment_method")]
+    public partial class Payment_method
     {
         [Key]
         public int id_payment_method { get; set; }

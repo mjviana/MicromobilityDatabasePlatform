@@ -1,13 +1,10 @@
 namespace SQLServer.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("historical")]
-    public partial class historical
+    public partial class Historical
     {
         [Key]
         public int id_historical { get; set; }
@@ -20,8 +17,8 @@ namespace SQLServer.Models
 
         public decimal longitude { get; set; }
 
-        public virtual trip trip { get; set; }
+        public virtual Trip trip { get; set; }
 
-        public virtual user user { get; set; }
+        public virtual User user { get; set; }
     }
 }

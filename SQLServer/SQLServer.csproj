@@ -70,18 +70,28 @@
       <DependentUpon>202201051619104_UpdateLongitudeAndLatitudeTypes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\historical.cs" />
+    <Compile Include="Models\Historical.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="MicromobililtyContext.cs" />
-    <Compile Include="Models\payment.cs" />
-    <Compile Include="Models\payment_method.cs" />
-    <Compile Include="Models\problem.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Payment_method.cs" />
+    <Compile Include="Models\Problem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\trip.cs" />
-    <Compile Include="Models\unit_measurements.cs" />
-    <Compile Include="Models\user.cs" />
-    <Compile Include="Models\vehicle.cs" />
+    <Compile Include="Models\Trip.cs" />
+    <Compile Include="Models\UnitOfMeasure.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="Repositories\IHistoryRepository.cs" />
+    <Compile Include="Repositories\ILanguagesRepository.cs" />
+    <Compile Include="Repositories\IPaymentMethodsRepository.cs" />
+    <Compile Include="Repositories\IPaymentsRepository.cs" />
+    <Compile Include="Repositories\IProblemsRepository.cs" />
+    <Compile Include="Repositories\ITripsRepository.cs" />
+    <Compile Include="Repositories\IUnitsOfMeasureRepository.cs" />
+    <Compile Include="Repositories\IUsersRepository.cs" />
+    <Compile Include="Repositories\IVehiclesRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -92,5 +102,9 @@
       <DependentUpon>202201051619104_UpdateLongitudeAndLatitudeTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

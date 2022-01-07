@@ -1,18 +1,17 @@
 namespace SQLServer.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class user
+    [Table("users")]
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public User()
         {
-            historicals = new HashSet<historical>();
-            trips = new HashSet<trip>();
+            historicals = new HashSet<Historical>();
+            trips = new HashSet<Trip>();
         }
 
         [Key]
@@ -41,10 +40,10 @@ namespace SQLServer.Models
         public int? id_payment_method { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<historical> historicals { get; set; }
+        public virtual ICollection<Historical> historicals { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<trip> trips { get; set; }
+        public virtual ICollection<Trip> trips { get; set; }
 
         public override string ToString()
         {

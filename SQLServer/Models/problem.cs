@@ -1,12 +1,11 @@
 namespace SQLServer.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class problem
+    [Table("problems")]
+    public partial class Problem
     {
         [Key]
         public int id_problem { get; set; }
@@ -17,10 +16,10 @@ namespace SQLServer.Models
 
         [Column("problem", TypeName = "text")]
         [Required]
-        public string problem1 { get; set; }
+        public string description { get; set; }
 
         public DateTime dataproblem { get; set; }
 
-        public virtual trip trip { get; set; }
+        public virtual Trip trip { get; set; }
     }
 }

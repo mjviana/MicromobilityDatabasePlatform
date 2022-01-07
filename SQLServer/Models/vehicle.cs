@@ -1,17 +1,16 @@
 namespace SQLServer.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class vehicle
+    [Table("vehicles")]
+    public partial class Vehicle
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public vehicle()
+        public Vehicle()
         {
-            trips = new HashSet<trip>();
+            trips = new HashSet<Trip>();
         }
 
         [Key]
@@ -28,6 +27,6 @@ namespace SQLServer.Models
         public bool? active { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<trip> trips { get; set; }
+        public virtual ICollection<Trip> trips { get; set; }
     }
 }

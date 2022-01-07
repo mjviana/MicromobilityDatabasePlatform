@@ -1,12 +1,9 @@
 namespace SQLServer.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class payment
+    public partial class Payment
     {
         [Key]
         public int id_payment { get; set; }
@@ -23,6 +20,6 @@ namespace SQLServer.Models
         [StringLength(50)]
         public string payment_type { get; set; }
 
-        public virtual trip trip { get; set; }
+        public virtual Trip trip { get; set; }
     }
 }

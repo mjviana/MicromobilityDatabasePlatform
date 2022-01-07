@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SQLServer
 {
@@ -11,6 +8,45 @@ namespace SQLServer
     {
         static void Main(string[] args)
         {
+            try
+            {
+                using (var db = new MicromobililtyContext())
+                {
+                    var user = new Models.User
+                    {
+                        email = Faker.User.Email(),
+                        name = "Mário",
+
+                    };
+
+                    Console.WriteLine("Adding Mário to the database...");
+
+                    db.users.Add(user);
+
+                    db.SaveChanges();
+
+                    Console.WriteLine("Mário added!");
+                    Console.ReadLine();
+
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+
+
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                Console.ReadLine();
+            }
+
             //using (var db = new MicromobililtyContext())
             //{
             //    #region RUN ONLY ONE TIME
@@ -121,11 +157,11 @@ namespace SQLServer
             {
                 using (var db = new MicromobililtyContext())
                 {
-                    var vehicles = new List<Models.vehicle>();
+                    var vehicles = new List<Models.Vehicle>();
 
                     for (int i = 0; i < numberOfVehicles; i++)
                     {
-                        var vehicle = new Models.vehicle
+                        var vehicle = new Models.Vehicle
                         {
                             active = Faker.Number.Bool(),
                             latitude = Faker.GeoLocation.Latitude(),
