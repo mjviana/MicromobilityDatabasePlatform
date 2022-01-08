@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 
@@ -8,44 +9,63 @@ namespace SQLServer
     {
         static void Main(string[] args)
         {
-            try
+            var container = ContainerConfig.Configure();
+
+            using (var scope = container.BeginLifetimeScope())
             {
-                using (var db = new MicromobililtyContext())
+                var unitOfwork = scope.Resolve<IUnitOfWork>();
+
+                var user = new Models.User
                 {
-                    var user = new Models.User
-                    {
-                        email = Faker.User.Email(),
-                        name = "Mário",
+                    email = Faker.User.Email(),
+                    name = "Viana",
+                };
 
-                    };
+                Console.WriteLine($"Addinng the user: {user}....");
 
-                    Console.WriteLine("Adding Mário to the database...");
-
-                    db.users.Add(user);
-
-                    db.SaveChanges();
-
-                    Console.WriteLine("Mário added!");
-                    Console.ReadLine();
-
-                }
+                unitOfwork.UsersRepository.Add(user);
+                unitOfwork.SaveChanges();
             }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
 
 
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                Console.ReadLine();
-            }
+            //try
+            //{
+            //    using (var db = new MicromobililtyContext())
+            //    {
+            //        var user = new Models.User
+            //        {
+            //            email = Faker.User.Email(),
+            //            name = "Mário",
+
+            //        };
+
+            //        Console.WriteLine("Adding Mário to the database...");
+
+            //        db.users.Add(user);
+
+            //        db.SaveChanges();
+
+            //        Console.WriteLine("Mário added!");
+            //        Console.ReadLine();
+
+            //    }
+            //}
+            //catch (DbEntityValidationException e)
+            //{
+            //    foreach (var eve in e.EntityValidationErrors)
+            //    {
+            //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+
+
+            //        foreach (var ve in eve.ValidationErrors)
+            //        {
+            //            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+            //                ve.PropertyName, ve.ErrorMessage);
+            //        }
+            //    }
+            //    Console.ReadLine();
+            //}
 
             //using (var db = new MicromobililtyContext())
             //{

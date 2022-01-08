@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=6.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.6.3.0\lib\netstandard2.0\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -42,18 +45,40 @@
     <Reference Include="Faker, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Faker.Data.2.0.0\lib\netstandard2.0\Faker.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,6 +90,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContainerConfig.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\202201051619104_UpdateLongitudeAndLatitudeTypes.cs" />
     <Compile Include="Migrations\202201051619104_UpdateLongitudeAndLatitudeTypes.Designer.cs">
       <DependentUpon>202201051619104_UpdateLongitudeAndLatitudeTypes.cs</DependentUpon>
@@ -82,15 +109,24 @@
     <Compile Include="Models\UnitOfMeasure.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Vehicle.cs" />
-    <Compile Include="Repositories\IHistoryRepository.cs" />
-    <Compile Include="Repositories\ILanguagesRepository.cs" />
-    <Compile Include="Repositories\IPaymentMethodsRepository.cs" />
-    <Compile Include="Repositories\IPaymentsRepository.cs" />
-    <Compile Include="Repositories\IProblemsRepository.cs" />
-    <Compile Include="Repositories\ITripsRepository.cs" />
-    <Compile Include="Repositories\IUnitsOfMeasureRepository.cs" />
-    <Compile Include="Repositories\IUsersRepository.cs" />
-    <Compile Include="Repositories\IVehiclesRepository.cs" />
+    <Compile Include="Repositories\Implementations\HistoryRepository.cs" />
+    <Compile Include="Repositories\Implementations\LanguagesRepository.cs" />
+    <Compile Include="Repositories\Implementations\PaymentMethodsRepository.cs" />
+    <Compile Include="Repositories\Implementations\PaymentsRepository.cs" />
+    <Compile Include="Repositories\Implementations\ProblemsRepository.cs" />
+    <Compile Include="Repositories\Implementations\TripsRepository.cs" />
+    <Compile Include="Repositories\Implementations\UnitsOfMeasureRepository.cs" />
+    <Compile Include="Repositories\Implementations\UsersRepository.cs" />
+    <Compile Include="Repositories\Implementations\VehiclesRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IHistoryRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ILanguagesRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPaymentMethodsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPaymentsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IProblemsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITripsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUnitsOfMeasureRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUsersRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IVehiclesRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
